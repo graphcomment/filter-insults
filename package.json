@@ -1,0 +1,15 @@
+{
+  "name": "filter-insults",
+  "description": "Filter insults in a string",
+  "version": "1.0.0",
+  "main": "filter-insults.js",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.5"
+  },
+  "scripts": {
+    "test": "mocha filter-insults.test.js"
+  },
+  "license": "ISC"
+}
