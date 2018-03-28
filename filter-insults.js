@@ -3,7 +3,7 @@
 module.exports = function (insults) {
 
   if (!insults || !(insults instanceof Array)) {
-    throw 'You should provided an array of insults the first argument'
+    throw 'You should provid an array of insults.'
   }
 
   function makeRegExp(insult) {
@@ -19,7 +19,7 @@ module.exports = function (insults) {
 
   function replace(str, replacement) {
     for (var i = 0; i < insults.length; i++) {
-      var regExp = makeRegExp(insults[i]);
+      var regExp = makeRegExp(insults[i])
       if (regExp.test(str)) {
         var match
         while (match = regExp.exec(str)) {
@@ -31,7 +31,7 @@ module.exports = function (insults) {
         }
       }
     }
-    return str;
+    return str
   }
 
   return {
