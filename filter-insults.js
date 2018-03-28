@@ -17,7 +17,7 @@ module.exports = function (insults) {
     return false
   }
 
-  function replace(str, replacement = '*') {
+  function replace(str, replacement) {
     for (var i = 0; i < insults.length; i++) {
       var regExp = makeRegExp(insults[i]);
       if (regExp.test(str)) {
@@ -25,7 +25,7 @@ module.exports = function (insults) {
         while (match = regExp.exec(str)) {
           str = (
             str.substr(0, match.index + 1) +
-            Array(match[0].length).join(replacement) +
+            Array(match[0].length).join(replacement || '*') +
             str.substr(match.index + match[0].length, str.length)
           )
         }

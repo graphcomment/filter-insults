@@ -1,6 +1,6 @@
-Filter insults in a string
+## Detect insults in a string [![Build Status](https://travis-ci.org/graphcomment/filter-insults.svg?branch=master)](https://travis-ci.org/graphcomment/filter-insults)
 
-** Warning: you need to provide your own insults list, you can get one here:**
+Warning: you need to provide your own insults list, you can get one here:
 
 - https://github.com/zacanger/profane-words
 - https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words
