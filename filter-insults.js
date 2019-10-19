@@ -7,7 +7,7 @@ module.exports = function (insults) {
   }
 
   function makeRegExp(insult) {
-    return new RegExp('(?<![a-zA-Z0-9])' + insult + '(?![a-zA-Z0-9])', 'i')
+    return new RegExp('(?<![a-z0-9])' + insult + '(?![a-z0-9])', 'i')
   }
 
   function contains(str) {
