@@ -7,7 +7,7 @@ module.exports = function (insults) {
   }
 
   function makeRegExp(insult) {
-    return new RegExp('[^a-zA-Z0-9]?' + insult + '(?![a-zA-Z0-9])', 'i')
+    return new RegExp('(?<![a-zA-Z0-9])' + insult + '(?![a-zA-Z0-9])', 'i')
   }
 
   function contains(str) {
@@ -24,8 +24,8 @@ module.exports = function (insults) {
         var match
         while (match = regExp.exec(str)) {
           str = (
-            str.substr(0, match.index + 1) +
-            Array(match[0].length).join(replacement || '*') +
+            str.substr(0, match.index) +
+            Array(match[0].length + 1).join(replacement || '*') +
             str.substr(match.index + match[0].length, str.length)
           )
         }

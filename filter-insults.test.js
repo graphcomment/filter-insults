@@ -36,6 +36,7 @@ describe('FilterInsults', function() {
 
     it('DONT detect insults not delimited by spaces', function() {
       assert.isFalse(filterInsults.contains('foo insult1bar'));
+      assert.isFalse(filterInsults.contains('fooinsult1 bar'));
     })
   })
 
