@@ -14,7 +14,7 @@ describe('FilterInsults', function() {
     var filterInsults
 
     beforeEach(function() {
-      filterInsults = new FilterInsults(['insult1', 'insult2'])
+      filterInsults = new FilterInsults(['insult1', 'insult2', 'insult with space'])
     })
 
     it('detect insults surrounded by spaces', function() {
@@ -28,6 +28,10 @@ describe('FilterInsults', function() {
 
     it('detect insults surrounded by special characters', function() {
       assert.isTrue(filterInsults.contains('foo insult1.bar'));
+    })
+
+    it('detect insults containing spaces', function() {
+      assert.isTrue(filterInsults.contains('foo insult with space bar'));
     })
 
     it('detect uppercase insults', function() {
