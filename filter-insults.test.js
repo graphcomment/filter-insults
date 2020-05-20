@@ -39,7 +39,7 @@ describe('FilterInsults', function() {
     })
 
     it('DONT detect insults not delimited by spaces', function() {
-      assert.isFalse(filterInsults.contains('foo insult1bar'));
+      assert.isFalse(filterInsults.contains('foo insult1bar baz'));
       assert.isFalse(filterInsults.contains('fooinsult1 bar'));
     })
   })
@@ -61,6 +61,10 @@ describe('FilterInsults', function() {
 
     it('replace multiple insults', function() {
       assert.equal(filterInsults.replace('foo insult1 baz insult2'), 'foo ******* baz *******');
+    })
+
+    it('does not replace insults not delimited by spaces', function() {
+      assert.equal(filterInsults.replace('foo insult1baz insult2'), 'foo insult1baz *******');
     })
 
     it('replace insults with provided character', function() {
