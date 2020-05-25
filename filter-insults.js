@@ -6,11 +6,16 @@ module.exports = function (insults) {
     throw 'You should provid an array of insults.'
   }
 
+  function clean(str) {
+    return str.replace(/[^\x00-\x7F]/g, '')
+  }
+
   function makeRegExp(insult) {
     return new RegExp('(?<![a-z0-9])' + insult + '(?![a-z0-9])', 'i')
   }
 
   function contains(str) {
+    str = clean(str)
     for (var i = 0; i < insults.length; i++) {
       if (makeRegExp(insults[i]).test(str)) return true
     }
@@ -18,6 +23,7 @@ module.exports = function (insults) {
   }
 
   function replace(str, replacement) {
+    str = clean(str)
     for (var i = 0; i < insults.length; i++) {
       var regExp = makeRegExp(insults[i])
       if (regExp.test(str)) {

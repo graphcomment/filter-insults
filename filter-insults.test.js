@@ -14,7 +14,13 @@ describe('FilterInsults', function() {
     var filterInsults
 
     beforeEach(function() {
-      filterInsults = new FilterInsults(['insult1', 'insult2', 'insult with space'])
+      filterInsults = new FilterInsults([
+        'insult1',
+        'insult2',
+        'insult with space',
+        'http://example.com',
+        'exqi',
+      ])
     })
 
     it('detect insults surrounded by spaces', function() {
@@ -38,6 +44,18 @@ describe('FilterInsults', function() {
       assert.isTrue(filterInsults.contains('foo INSULT1 bar'));
     })
 
+    it('detect links', function() {
+      assert.isTrue(filterInsults.contains('foo http://example.com bar'));
+    })
+
+    it('detect insults with invisible characters', function() {
+      var str1 = "exqi"
+      var str2 = "exqi︆" // invisible character at the end here
+      assert.isFalse(str1 === str2)
+      assert.isTrue(filterInsults.contains('foo ' + str1 + ' bar'))
+      assert.isTrue(filterInsults.contains('foo ' + str2 + ' bar'))
+    })
+
     it('DONT detect insults not delimited by spaces', function() {
       assert.isFalse(filterInsults.contains('foo insult1bar baz'));
       assert.isFalse(filterInsults.contains('fooinsult1 bar'));
@@ -48,7 +66,11 @@ describe('FilterInsults', function() {
     var filterInsults
 
     beforeEach(function() {
-      filterInsults = new FilterInsults(['insult1', 'insult2'])
+      filterInsults = new FilterInsults([
+        'insult1',
+        'insult2',
+        'http://example.com',
+      ])
     })
 
     it('do nothing if no insults', function() {
@@ -63,12 +85,17 @@ describe('FilterInsults', function() {
       assert.equal(filterInsults.replace('foo insult1 baz insult2'), 'foo ******* baz *******');
     })
 
-    it('does not replace insults not delimited by spaces', function() {
-      assert.equal(filterInsults.replace('foo insult1baz insult2'), 'foo insult1baz *******');
-    })
-
     it('replace insults with provided character', function() {
       assert.equal(filterInsults.replace('foo insult1 baz', 'x'), 'foo xxxxxxx baz');
+    })
+
+    it('detect links', function() {
+      assert.equal(filterInsults.replace('foo http://example.com bar'), 'foo ****************** bar');
+    })
+
+    it('DONT replace insults not delimited by spaces', function() {
+      assert.equal(filterInsults.replace('insult1baz insult2'), 'insult1baz *******');
+      assert.equal(filterInsults.replace('insult1.baz insult2'), '*******.baz *******');
     })
   })
 
