@@ -41,19 +41,19 @@ describe('FilterInsults', function() {
     })
 
     it('detect uppercase insults', function() {
-      assert.isTrue(filterInsults.contains('foo INSULT1 bar'));
+      assert.isTrue(filterInsults.contains('INSULT1'));
     })
 
     it('detect links', function() {
-      assert.isTrue(filterInsults.contains('foo http://example.com bar'));
+      assert.isTrue(filterInsults.contains('http://example.com'));
     })
 
     it('detect insults with invisible characters', function() {
       var str1 = "exqi"
       var str2 = "exqi︆" // invisible character at the end here
       assert.isFalse(str1 === str2)
-      assert.isTrue(filterInsults.contains('foo ' + str1 + ' bar'))
-      assert.isTrue(filterInsults.contains('foo ' + str2 + ' bar'))
+      assert.isTrue(filterInsults.contains(str1))
+      assert.isTrue(filterInsults.contains(str2))
     })
 
     it('DONT detect insults not delimited by spaces', function() {
@@ -69,12 +69,17 @@ describe('FilterInsults', function() {
       filterInsults = new FilterInsults([
         'insult1',
         'insult2',
+        'cons',
         'http://example.com',
       ])
     })
 
     it('do nothing if no insults', function() {
       assert.equal('foo bar baz', filterInsults.replace('foo bar baz'));
+    })
+
+    it('DONT replace insults if accent near by', function() {
+      assert.equal('la conséquence', filterInsults.replace('la conséquence'));
     })
 
     it('replace insults', function() {

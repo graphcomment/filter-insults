@@ -7,11 +7,12 @@ module.exports = function (insults) {
   }
 
   function clean(str) {
-    return str.replace(/[^\x00-\x7F]/g, '')
+    // remove invisible spaces
+    return str.replace(/[\xA0\x00-\x09\x0B\x0C\x0E-\x1F\x7F]+(.+)[\xA0\x00-\x09\x0B\x0C\x0E-\x1F\x7F]+(.+)/g, '')
   }
 
   function makeRegExp(insult) {
-    return new RegExp('(?<![a-z0-9])' + insult + '(?![a-z0-9])', 'i')
+    return new RegExp('(?<![a-z0-9À-ú])' + insult + '(?![a-z0-9À-ú])', 'i')
   }
 
   function contains(str) {
